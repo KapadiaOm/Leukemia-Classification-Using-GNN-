@@ -53,7 +53,7 @@ class C_NMCDataset(Dataset):
         return self.data[idx], self.labels[idx]
 
 # Usage
-dataset = C_NMCDataset('E:/leukemia-classifier/backend/PKG - C-NMC 2019')
+dataset = C_NMCDataset(...)
 print(f'Total number of samples: {len(dataset)}')
 
 # Get the first sample
@@ -266,7 +266,7 @@ def split_data(graph_data, test_size=0.2):
 # Main function to tie everything together
 def main():
     print("Loading dataset...")
-    dataset = load_dataset('E:/leukemia-classifier/backend/PKG - C-NMC 2019')
+    dataset = load_dataset(...)
     print("Dataset loaded. Total samples:", len(dataset))
     print("Extracting features...")
     features, labels = extract_features(dataset)
