@@ -5,3 +5,4 @@ Pillow
 flask-cors
 torch-geometric
 scikit-learn
+matplotlib
