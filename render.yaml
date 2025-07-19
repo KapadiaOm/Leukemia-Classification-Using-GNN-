@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: leukemia-backend
+    env: python
+    repo: https://github.com/KapadiaOm/Leukemia-Classifier
+    branch: main
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "python backend/app.py"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+    rootDir: backend
+    plan: free
+
+  - type: web
+    name: leukemia-frontend
+    env: static
+    repo: https://github.com/KapadiaOm/Leukemia-Classifier
+    branch: main
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: frontend/build
+    rootDir: frontend
+    plan: free
