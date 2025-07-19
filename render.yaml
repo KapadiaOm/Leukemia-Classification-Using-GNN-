@@ -12,11 +12,12 @@ services:
         value: production
     plan: free
 
-  - type: static_site
+  - type: web
     name: leukemia-frontend
+    env: node
     repo: https://github.com/KapadiaOm/Leukemia-Classifier
     branch: main
     rootDir: frontend
     buildCommand: "npm install && npm run build"
-    staticPublishPath: build
+    startCommand: "npx serve -s build"
     plan: free
