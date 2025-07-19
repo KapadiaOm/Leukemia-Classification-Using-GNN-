@@ -7,18 +7,23 @@ import torch.nn.functional as F
 from Om_GNN_Leukmia_22BCE2051 import GNNModel
 from torch_geometric.data import Data
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-# Load model
+# Load GNN Model
 input_dim = 512
 hidden_dim = 64
 output_dim = 2
-
 model = GNNModel(input_dim, hidden_dim, output_dim)
 model.load_state_dict(torch.load('model.pt', map_location='cpu'))
 model.eval()
+
+# Load ResNet Backbone
+backbone = resnet18(pretrained=True)
+backbone.fc = torch.nn.Identity()
+backbone.eval()
 
 # Dummy edge for single node
 dummy_edge_index = torch.tensor([[0], [0]], dtype=torch.long)
@@ -38,11 +43,6 @@ def classify():
     image = Image.open(file.stream).convert("RGB")
     image = transform(image).unsqueeze(0)
 
-    # Extract features using ResNet18
-    backbone = resnet18(pretrained=True)
-    backbone.fc = torch.nn.Identity()
-    backbone.eval()
-
     with torch.no_grad():
         feature = backbone(image).squeeze(0)
         data = Data(x=feature.unsqueeze(0), edge_index=dummy_edge_index)
@@ -55,4 +55,5 @@ def classify():
     return jsonify({"label": label, "confidence": confidence})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
