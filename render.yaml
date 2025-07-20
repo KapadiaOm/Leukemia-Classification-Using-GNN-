@@ -12,9 +12,8 @@ services:
     start:
       workingDir: backend
 
-  - type: web
+  - type: static_site
     name: leukemia-frontend
-    env: static
     buildCommand: npm install && npm run build
     staticPublishPath: frontend/build
     build:
