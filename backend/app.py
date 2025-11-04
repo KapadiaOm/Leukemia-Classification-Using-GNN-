@@ -34,7 +34,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-@app.route("/", methods=["POST"])
+@app.route("/predict", methods=["POST"])
 def classify():
     if 'file' not in request.files:
         return jsonify({"error": "No file provided"}), 400
