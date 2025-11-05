@@ -35,7 +35,7 @@ This project integrates a **Flask backend** and a **ReactJS frontend** to delive
 ---
 
 ## 🧩 Project Structure
-
+```bash
 Leukemia-Classification-Using-GNN-/
 │
 ├── backend/
